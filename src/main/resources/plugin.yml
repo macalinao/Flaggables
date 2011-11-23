@@ -1,0 +1,8 @@
+main: com.crimsonrpg.flaggables.FlaggablesPlugin
+
+name: Flaggables
+description: Flag system
+author: AlbireoX
+version: 1.0
+
+load: startup
