@@ -4,7 +4,6 @@
  */
 package com.crimsonrpg.flaggables;
 
-import com.FlaggablesPluginrpg.flaggables.SimpleFlagManager;
 import com.crimsonrpg.flaggables.api.Flaggables;
 import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;

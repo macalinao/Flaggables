@@ -1,5 +1,5 @@
 
-package com.FlaggablesPluginrpg.flaggables;
+package com.crimsonrpg.flaggables;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,9 +8,11 @@ import java.util.Map;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import com.crimsonrpg.flaggables.FlaggablesPlugin;
+import com.crimsonrpg.flaggables.api.Flag;
 import com.crimsonrpg.flaggables.api.Flag;
 import com.crimsonrpg.flaggables.api.FlagId;
+import com.crimsonrpg.flaggables.api.FlagId;
+import com.crimsonrpg.flaggables.api.FlagManager;
 import com.crimsonrpg.flaggables.api.FlagManager;
 
 /**
