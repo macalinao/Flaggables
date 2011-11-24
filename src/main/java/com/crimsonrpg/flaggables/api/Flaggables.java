@@ -24,7 +24,9 @@ public class Flaggables {
     }
     
     public void setFlagManager(FlagManager flagManager) {
+        System.out.println("HI!!! " + flagManager);
         if (flagManager == null) {
+            System.out.println("BYE!!! " + flagManager);
             this.flagManager = flagManager;
         }
     }
