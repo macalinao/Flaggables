@@ -11,6 +11,13 @@ import java.util.List;
  */
 public interface Flaggable {
     /**
+     * Gets the ID of this flaggable.
+     * 
+     * @return 
+     */
+    public String getId();
+    
+    /**
      * Gets the value of a flag.
      * 
      * @param <T>
