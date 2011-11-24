@@ -9,10 +9,7 @@ import java.util.Map;
 import org.bukkit.configuration.ConfigurationSection;
 
 import com.crimsonrpg.flaggables.api.Flag;
-import com.crimsonrpg.flaggables.api.Flag;
 import com.crimsonrpg.flaggables.api.FlagId;
-import com.crimsonrpg.flaggables.api.FlagId;
-import com.crimsonrpg.flaggables.api.FlagManager;
 import com.crimsonrpg.flaggables.api.FlagManager;
 
 /**
