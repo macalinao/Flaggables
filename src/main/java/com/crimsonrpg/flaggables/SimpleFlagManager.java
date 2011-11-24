@@ -6,11 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.configuration.ConfigurationSection;
 
 import com.crimsonrpg.flaggables.api.Flag;
 import com.crimsonrpg.flaggables.api.FlagId;
 import com.crimsonrpg.flaggables.api.FlagManager;
+import com.crimsonrpg.flaggables.api.Flaggable;
 
 /**
  * Represents a simple flag manager.
@@ -33,10 +36,10 @@ public class SimpleFlagManager implements FlagManager {
         try {
             flag = type.newInstance();
         } catch (InstantiationException ex) {
-            FlaggablesPlugin.LOGGER.severe("[FlaggablesPlugin] Could not instantiate a new '" + type.getName() + "' flag.");
+            FlaggablesPlugin.LOGGER.severe("[Flaggables] Could not instantiate a new '" + type.getName() + "' flag.");
             return null;
         } catch (IllegalAccessException ex) {
-            FlaggablesPlugin.LOGGER.severe("[FlaggablesPlugin] Could not access the type '" + type.getName() + "' to create a flag of that type.");
+            FlaggablesPlugin.LOGGER.severe("[Flaggables] Could not access the type '" + type.getName() + "' to create a flag of that type.");
             return null;
         }
         
@@ -55,7 +58,7 @@ public class SimpleFlagManager implements FlagManager {
         
         //Check for the annotation
         if (!type.isAnnotationPresent(FlagId.class)) {
-            FlaggablesPlugin.LOGGER.warning("[FlaggablesPlugin] The flag type '" + type.getName() + "; does not have a FlagId annotation present; skipping.");
+            FlaggablesPlugin.LOGGER.warning("[Flaggables] The flag type '" + type.getName() + "; does not have a FlagId annotation present; skipping.");
             return;
         }
         
@@ -63,12 +66,12 @@ public class SimpleFlagManager implements FlagManager {
         
         //Check if the flag has already been registered
         if (registeredFlags.containsKey(id)) {
-            FlaggablesPlugin.LOGGER.warning("[FlaggablesPlugin] The flag '" + type.getName() + "' cannot be registered under '"
+            FlaggablesPlugin.LOGGER.warning("[Flaggables] The flag '" + type.getName() + "' cannot be registered under '"
                     + id + "' as there is already a flag named '" + registeredFlags.get(id).getName() + "' in its place.");
             return;
         }
         
-        FlaggablesPlugin.LOGGER.info("[FlaggablesPlugin] Registering '" + type.getName() + "' as '" + id + "'.");
+        FlaggablesPlugin.LOGGER.info("[Flaggables] Registering '" + type.getName() + "' as '" + id + "'.");
         registeredFlags.put(id, type);
     }
     
@@ -79,7 +82,7 @@ public class SimpleFlagManager implements FlagManager {
             ConfigurationSection flagSection = section.getConfigurationSection(key);
             Class type = this.getFlagType(key);
             if (type == null) {
-                FlaggablesPlugin.LOGGER.warning("[FlaggablesPlugin] Undefined type '" + key + "' presented; skipping.");
+                FlaggablesPlugin.LOGGER.warning("[Flaggables] Undefined type '" + key + "' presented; skipping.");
                 continue;
             }
             flagList.add(this.makeFlag(type, flagSection));
@@ -96,7 +99,7 @@ public class SimpleFlagManager implements FlagManager {
             
             //Check for an annotation on the flag
             if (!type.isAnnotationPresent(FlagId.class)) {
-                FlaggablesPlugin.LOGGER.warning("[FlaggablesPlugin] The flag of type '" + type.getName() + "' does not have an annotation for Flag Id present; skipping.");
+                FlaggablesPlugin.LOGGER.warning("[Flaggables] The flag of type '" + type.getName() + "' does not have an annotation for Flag Id present; skipping.");
                 continue;
             }
             
@@ -109,4 +112,50 @@ public class SimpleFlagManager implements FlagManager {
         }
     }
     
+    public <T extends Flaggable> List<T> readFlaggables(ConfigurationSection section, Class<T> type) {
+        try {
+            type.getConstructor();
+        } catch (NoSuchMethodException ex) {
+            FlaggablesPlugin.LOGGER.severe("[Flaggables] The flaggable '" + type.getName() + "' does not contain a zero argument constructor.");
+        } catch (SecurityException ex) {
+            FlaggablesPlugin.LOGGER.severe("[Flaggables] The flaggable '" + type.getName() + "' created a security exception.");
+        }
+        
+        List<T> flaggables = new ArrayList<T>();
+        
+        for (String key : section.getKeys(false)) {
+            
+            T flaggable = null;
+            
+            try {
+                flaggable = type.newInstance();
+            } catch (InstantiationException ex) {
+                FlaggablesPlugin.LOGGER.severe("[Flaggables] Could not instantiate a new '" + type.getName() + "' flag.");
+                return null;
+            } catch (IllegalAccessException ex) {
+                FlaggablesPlugin.LOGGER.severe("[Flaggables] Could not access the type '" + type.getName() + "' to create a flag of that type.");
+                return null;
+            }
+            
+            //Set the id
+            flaggable.setId(key);
+            
+            //Set the flags
+            ConfigurationSection flaggableSection = section.getConfigurationSection(key);
+            List<Flag> makeFlagList = makeFlagList(flaggableSection);
+            flaggable.addFlags(makeFlagList);
+            
+            //Add to the list
+            flaggables.add(flaggable);
+        }
+        
+        return flaggables;
+    }
+    
+    public void writeFlaggables(List<? extends Flaggable> flaggables, ConfigurationSection section) {
+        //Loop through all flaggables and write them
+        for (Flaggable flaggable : flaggables) {
+            storeFlagList(flaggable.getFlags(), section.createSection(flaggable.getId()));
+        }
+    }
 }
