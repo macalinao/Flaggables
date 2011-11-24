@@ -8,7 +8,7 @@ package com.crimsonrpg.flaggables.api;
  * Flaggables
  */
 public class Flaggables {
-    private static Flaggables instance;
+    private static Flaggables instance = new Flaggables();
     private FlagManager flagManager = null;
     
     private Flaggables() {
