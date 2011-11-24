@@ -13,8 +13,21 @@ import java.util.Map;
  * Represents a generic flaggable object.
  */
 public abstract class GenericFlaggable implements Flaggable {
+    private String id;
     private Map<Class, Flag> flags = new HashMap<Class, Flag>();
+    
+    public GenericFlaggable(String id) {
+        this.id = id;
+    }
+    
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+    
     public final <T extends Flag> T getFlag(Class<T> type) {
         Flag flag = flags.get(type);
         if (flag != null) return type.cast(flag);

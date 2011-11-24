@@ -13,9 +13,16 @@ public interface Flaggable {
     /**
      * Gets the ID of this flaggable.
      * 
-     * @return 
+     * @return The flaggable's id.
      */
     public String getId();
+    
+    /**
+     * Sets the ID of this flaggable.
+     * 
+     * @param id The new ID to set.
+     */
+    public void setId(String id);
     
     /**
      * Gets the value of a flag.
