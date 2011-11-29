@@ -11,6 +11,7 @@ import org.bukkit.configuration.ConfigurationSection;
  * Represents a manager of Flags.
  */
 public interface FlagManager {
+
     /**
      * Gets a flag type from a name.
      * 
@@ -18,7 +19,7 @@ public interface FlagManager {
      * @return 
      */
     public Class<? extends Flag> getFlagType(String name);
-    
+
     /**
      * Makes a new flag with default data.
      * 
@@ -27,7 +28,7 @@ public interface FlagManager {
      * @return The flag.
      */
     public <T extends Flag> T makeFlag(Class<T> type);
-    
+
     /**
      * Makes a new flag with the specified data,
      * 
@@ -37,14 +38,21 @@ public interface FlagManager {
      * @return The flag.
      */
     public <T extends Flag> T makeFlag(Class<T> type, ConfigurationSection data);
-    
+
     /**
      * Registers the given flag type.
      * 
      * @param type The flag type.
      */
     public void registerFlag(Class<? extends Flag> type);
-    
+
+    /**
+     * Registers multiple flag types.
+     * 
+     * @param types The flag types.
+     */
+    public void registerFlags(Class<? extends Flag>... types);
+
     /**
      * Makes a list of flags from the given configuration section.
      * 
@@ -52,7 +60,7 @@ public interface FlagManager {
      * @return The flags.
      */
     public List<Flag> makeFlagList(ConfigurationSection section);
-    
+
     /**
      * Stores a list of flags in the given section.
      * 
@@ -60,7 +68,7 @@ public interface FlagManager {
      * @param section The section to store the flags in.
      */
     public void storeFlagList(List<Flag> flags, ConfigurationSection section);
-    
+
     /**
      * Reads a list of Flaggables from a ConfigurationSection.
      * 
@@ -70,7 +78,7 @@ public interface FlagManager {
      * @return 
      */
     public <T extends Flaggable> List<T> readFlaggables(ConfigurationSection section, Class<T> type);
-    
+
     /**
      * Writes a list of Flaggables to a ConfigurationSection.
      * 
@@ -78,4 +86,5 @@ public interface FlagManager {
      * @param section 
      */
     public void writeFlaggables(List<? extends Flaggable> flaggables, ConfigurationSection section);
+
 }
