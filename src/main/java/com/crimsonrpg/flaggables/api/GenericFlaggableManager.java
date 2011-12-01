@@ -14,7 +14,12 @@ import java.util.Map;
  */
 public abstract class GenericFlaggableManager<T extends Flaggable> implements FlaggableManager<T> {
     private Map<String, T> flaggables = new HashMap<String, T>();
-
+    
+    public void load(List<T> flaggables) {
+        flaggables.clear();
+        flaggables.addAll(flaggables);
+    }
+    
     public T get(String id) {
         return flaggables.get(id);
     }

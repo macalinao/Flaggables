@@ -12,19 +12,26 @@ import java.util.List;
 public interface FlaggableManager<T extends Flaggable> {
 
     /**
+     * Loads the flaggable manager with the given data.
+     * 
+     * @param flaggables 
+     */
+    public void load(List<T> flaggables);
+
+    /**
      * Creates an instance of the flaggable with the given id.
      * 
      * @param id The id of the Flaggable.
      */
     public T create(String id);
-    
+
     /**
      * Adds a flaggable to this flaggable manager.
      * 
      * @param flaggable 
      */
     public void add(T flaggable);
-    
+
     /**
      * Adds a group of flaggables to this flaggable manager.
      * 
