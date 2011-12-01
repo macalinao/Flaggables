@@ -19,6 +19,14 @@ public abstract class GenericFlaggableManager<T extends Flaggable> implements Fl
         return flaggables.get(id);
     }
 
+    public void add(T flaggable) {
+        flaggables.put(flaggable.getId(), flaggable);
+    }
+    
+    public void addAll(List<T> flaggables) {
+        flaggables.addAll(flaggables);
+    }
+    
     public T reassign(String newId, T flaggable) {
         flaggables.remove(flaggable.getId());
         flaggable.setId(newId);

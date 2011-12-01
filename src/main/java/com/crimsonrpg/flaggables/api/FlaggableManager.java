@@ -17,6 +17,20 @@ public interface FlaggableManager<T extends Flaggable> {
      * @param id The id of the Flaggable.
      */
     public T create(String id);
+    
+    /**
+     * Adds a flaggable to this flaggable manager.
+     * 
+     * @param flaggable 
+     */
+    public void add(T flaggable);
+    
+    /**
+     * Adds a group of flaggables to this flaggable manager.
+     * 
+     * @param flaggables 
+     */
+    public void addAll(List<T> flaggables);
 
     /**
      * Gets the flaggable with the given id.
