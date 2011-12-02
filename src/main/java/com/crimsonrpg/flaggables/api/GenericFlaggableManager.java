@@ -29,7 +29,9 @@ public abstract class GenericFlaggableManager<T extends Flaggable> implements Fl
     }
     
     public void addAll(List<T> flaggables) {
-        flaggables.addAll(flaggables);
+        for (T flaggable : flaggables) {
+            add(flaggable);
+        }
     }
     
     public T reassign(String newId, T flaggable) {
