@@ -9,7 +9,12 @@ import org.bukkit.configuration.ConfigurationSection;
 /**
  * Represents a flag that cannot be loaded or saved.
  */
-public abstract class SessionFlag implements Flag {
-    public final void load(ConfigurationSection section) {}
-    public final void save(ConfigurationSection section) {}
+public abstract class SessionFlag extends GenericFlag {
+
+    public final void load(ConfigurationSection section) {
+    }
+
+    public final void save(ConfigurationSection section) {
+    }
+
 }
