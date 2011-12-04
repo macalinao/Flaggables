@@ -19,11 +19,7 @@ public abstract class GenericFlag<T extends Flaggable> implements Flag {
     }
 
     public void setFlaggable(Flaggable flaggable) {
-        if (flaggable == null) {
-            this.flaggable = flaggable;
-        } else {
-            throw new IllegalArgumentException("The flaggable is already set for this object!");
-        }
+        this.flaggable = flaggable;
     }
 
     public abstract void load(ConfigurationSection section);
