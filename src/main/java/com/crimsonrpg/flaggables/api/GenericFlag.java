@@ -12,7 +12,7 @@ import org.bukkit.configuration.ConfigurationSection;
  */
 public abstract class GenericFlag<T extends Flaggable> implements Flag {
 
-    protected Flaggable flaggable;
+    private Flaggable flaggable = null;
 
     public final Flaggable getFlaggable() {
         return flaggable;
