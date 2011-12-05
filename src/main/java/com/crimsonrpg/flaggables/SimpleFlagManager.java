@@ -13,6 +13,7 @@ import com.crimsonrpg.flaggables.api.Flag;
 import com.crimsonrpg.flaggables.api.FlagId;
 import com.crimsonrpg.flaggables.api.FlagManager;
 import com.crimsonrpg.flaggables.api.Flaggable;
+import com.crimsonrpg.flaggables.api.FlaggableLoader;
 
 /**
  * Represents a simple flag manager.
@@ -119,44 +120,15 @@ public class SimpleFlagManager implements FlagManager {
         }
     }
 
-    public <T extends Flaggable> List<T> readFlaggables(ConfigurationSection section, Class<T> type) {
-        Constructor<T> constructor = null;
-
-        try {
-            constructor = type.getConstructor(String.class);
-        } catch (NoSuchMethodException ex) {
-            FlaggablesPlugin.LOGGER.severe("[Flaggables] The flaggable '" + type.getName() + "' does not contain a single argument String constructor.");
-            return null;
-        } catch (SecurityException ex) {
-            FlaggablesPlugin.LOGGER.severe("[Flaggables] The flaggable '" + type.getName() + "' created a security exception.");
-            return null;
-        }
-
+    public <T extends Flaggable> List<T> readFlaggables(ConfigurationSection section, FlaggableLoader<T> loader) {
         List<T> flaggables = new ArrayList<T>();
 
         for (String key : section.getKeys(false)) {
 
-            T flaggable = null;
-
-            try {
-                flaggable = constructor.newInstance(key);
-            } catch (InstantiationException ex) {
-                FlaggablesPlugin.LOGGER.severe("[Flaggables] Could not instantiate a new '" + type.getName() + "' flag.");
-                return null;
-            } catch (IllegalAccessException ex) {
-                FlaggablesPlugin.LOGGER.severe("[Flaggables] Could not access the type '" + type.getName() + "' to create a flag of that type.");
-                return null;
-            } catch (IllegalArgumentException ex) {
-                FlaggablesPlugin.LOGGER.severe("[Flaggables] Illegal arguments found for some odd reason.");
-                return null;
-            } catch (InvocationTargetException ex) {
-                FlaggablesPlugin.LOGGER.severe("[Flaggables] InvocationTargetException... what does this even mean?");
-                return null;
-            }
-
             //Set the flags
             ConfigurationSection flaggableSection = section.getConfigurationSection(key);
             List<Flag> makeFlagList = makeFlagList(flaggableSection);
+            T flaggable = loader.create(key);
             flaggable.addFlags(makeFlagList);
 
             //Add to the list

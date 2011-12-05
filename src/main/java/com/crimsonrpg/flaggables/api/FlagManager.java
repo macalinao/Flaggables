@@ -30,7 +30,7 @@ public interface FlagManager {
     public <T extends Flag> T makeFlag(Class<T> type);
 
     /**
-     * Makes a new flag with the specified data,
+     * Makes a new flag with the specified data.
      * 
      * @param <T>
      * @param type
@@ -74,10 +74,10 @@ public interface FlagManager {
      * 
      * @param <T>
      * @param section
-     * @param type
+     * @param loader
      * @return 
      */
-    public <T extends Flaggable> List<T> readFlaggables(ConfigurationSection section, Class<T> type);
+    public <T extends Flaggable> List<T> readFlaggables(ConfigurationSection section, FlaggableLoader<T> loader);
 
     /**
      * Writes a list of Flaggables to a ConfigurationSection.
