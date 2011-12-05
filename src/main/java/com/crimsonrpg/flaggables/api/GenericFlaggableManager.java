@@ -50,6 +50,10 @@ public abstract class GenericFlaggableManager<T extends Flaggable> implements Fl
     }
 
     public List<T> getList() {
-        return new ArrayList(flaggables.values());
+        return new ArrayList<T>(flaggables.values());
+    }
+    
+    public boolean idExists(String id) {
+        return flaggables.containsKey(id);
     }
 }

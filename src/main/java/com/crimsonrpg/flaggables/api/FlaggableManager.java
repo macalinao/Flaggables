@@ -75,4 +75,11 @@ public interface FlaggableManager<T extends Flaggable> {
      */
     public List<T> getList();
 
+    /**
+     * Checks if the given ID already exists within this Flaggable manager.
+     * 
+     * @param id The ID to check.
+     * @return True if the id exists
+     */
+    public boolean idExists(String id);
 }
