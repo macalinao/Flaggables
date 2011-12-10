@@ -1,7 +1,5 @@
 package com.crimsonrpg.flaggables;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -144,5 +142,4 @@ public class SimpleFlagManager implements FlagManager {
             storeFlagList(flaggable.getFlags(), section.createSection(flaggable.getId()));
         }
     }
-
 }
