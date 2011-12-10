@@ -117,29 +117,4 @@ public class SimpleFlagManager implements FlagManager {
             flag.save(flagSection);
         }
     }
-
-    public <T extends Flaggable> List<T> readFlaggables(ConfigurationSection section, FlaggableLoader<T> loader) {
-        List<T> flaggables = new ArrayList<T>();
-
-        for (String key : section.getKeys(false)) {
-
-            //Set the flags
-            ConfigurationSection flaggableSection = section.getConfigurationSection(key);
-            List<Flag> makeFlagList = makeFlagList(flaggableSection);
-            T flaggable = loader.create(key);
-            flaggable.addFlags(makeFlagList);
-
-            //Add to the list
-            flaggables.add(flaggable);
-        }
-
-        return flaggables;
-    }
-
-    public void writeFlaggables(List<? extends Flaggable> flaggables, ConfigurationSection section) {
-        //Loop through all flaggables and write them
-        for (Flaggable flaggable : flaggables) {
-            storeFlagList(flaggable.getFlags(), section.createSection(flaggable.getId()));
-        }
-    }
 }

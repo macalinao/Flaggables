@@ -69,22 +69,4 @@ public interface FlagManager {
      */
     public void storeFlagList(List<Flag> flags, ConfigurationSection section);
 
-    /**
-     * Reads a list of Flaggables from a ConfigurationSection.
-     * 
-     * @param <T>
-     * @param section
-     * @param loader
-     * @return 
-     */
-    public <T extends Flaggable> List<T> readFlaggables(ConfigurationSection section, FlaggableLoader<T> loader);
-
-    /**
-     * Writes a list of Flaggables to a ConfigurationSection.
-     * 
-     * @param flaggables
-     * @param section 
-     */
-    public void writeFlaggables(List<? extends Flaggable> flaggables, ConfigurationSection section);
-
 }

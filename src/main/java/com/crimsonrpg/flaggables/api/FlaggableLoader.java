@@ -14,7 +14,8 @@ public interface FlaggableLoader<T extends Flaggable> {
      * Creates a flaggable with the specified information.
      * 
      * @param id The ID of the flaggable.
+     * @param flags The flags to add to the flaggable.
      * @return The created flaggable.
      */
-    public T create(String id);
+    public T create(String id, List<Flag> flags);
 }

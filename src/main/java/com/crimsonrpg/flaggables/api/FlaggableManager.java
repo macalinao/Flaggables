@@ -5,6 +5,7 @@
 package com.crimsonrpg.flaggables.api;
 
 import java.util.List;
+import org.bukkit.configuration.ConfigurationSection;
 
 /**
  * Represents a flaggable manager.
@@ -19,11 +20,37 @@ public interface FlaggableManager<T extends Flaggable> {
     public void load(List<T> flaggables);
 
     /**
+     * Loads the flaggable manager with the data in
+     * the given ConfigurationSection.
+     * 
+     * @param section The section to load from.
+     */
+    public void readFlaggables(ConfigurationSection section);
+    
+    /**
+     * Saves the flaggables to a ConfigurationSection.
+     * 
+     * @param section The section to save to.
+     */
+    public void save(ConfigurationSection section);
+
+
+    /**
      * Creates an instance of the flaggable with the given id.
      * 
      * @param id The id of the Flaggable.
+     * @return The newly created flaggable.
      */
     public T create(String id);
+
+    /**
+     * Creates an instance of the flaggable with the given id and flags.
+     * 
+     * @param id The id of the flaggable.
+     * @param flags The flags of the flaggable.
+     * @return The newly created flaggable.
+     */
+    public T create(String id, List<Flag> flags);
 
     /**
      * Adds a flaggable to this flaggable manager.
