@@ -44,18 +44,25 @@ public abstract class GenericFlaggable implements Flaggable {
     }
 
     public final void addFlags(List<Flag> flags) {
+        if (flags == null) {
+            throw new IllegalArgumentException("Cannot add a list of null flags!");
+        }
+        
         for (Flag flag : flags) {
             setFlag(flag);
         }
     }
 
     public final void setFlag(Flag flag) {
+        if (flag == null) {
+            throw new IllegalArgumentException("Cannot set a null flag!");
+        }
         flag.setFlaggable(this);
         flags.put(flag.getClass(), flag);
     }
 
     public final List<Flag> getFlags() {
-        return new ArrayList(flags.values());
+        return new ArrayList<Flag>(flags.values());
     }
 
 }
