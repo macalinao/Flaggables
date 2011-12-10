@@ -25,7 +25,7 @@ public interface FlaggableManager<T extends Flaggable> {
      * 
      * @param section The section to load from.
      */
-    public void readFlaggables(ConfigurationSection section);
+    public void load(ConfigurationSection section);
     
     /**
      * Saves the flaggables to a ConfigurationSection.
