@@ -23,8 +23,8 @@ public abstract class GenericFlaggableManager<T extends Flaggable> implements Fl
     }
 
     public void load(List<T> flaggables) {
-        flaggables.clear();
-        flaggables.addAll(flaggables);
+        this.flaggables.clear();
+        this.addAll(flaggables);
     }
 
     public void load(ConfigurationSection section) {
